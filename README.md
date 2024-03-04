@@ -12,3 +12,7 @@ To add any of the boards to your Zephyr project, add the following to your `west
 ```
 
 > Note: After `v3.5.0`, the board directory structure has changed and the boards will need to be updated to the new structure. Checkout the `v3.5.0` branch for the last version that supports the old directory structure. Backwards compatibility may or may not be maintained in the future.
+
+## Supported Boards
+
+- [Adafruit Feather HUZZAH32 - ESP32](https://www.adafruit.com/product/3405)
