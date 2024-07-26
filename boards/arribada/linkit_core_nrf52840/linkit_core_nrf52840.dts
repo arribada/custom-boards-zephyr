@@ -46,7 +46,7 @@
 		io-channels = <&adc 0>;
 		output-ohms = <100000>;
 		full-ohms = <(100000 + 100000)>;
-	}
+	};
 
     aliases {
         led0 = &led0;
