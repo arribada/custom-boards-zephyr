@@ -21,6 +21,8 @@
 	};
 };
 
-linkit_serial: &uart0 {};
-linkit_i2c: &i2c0 {};
-linkit_spi: &spi1 {};
+linkit_serial: &uart1 {};
+linkit_gnss_serial: &uart0 {};
+linkit_ext_i2c: &i2c0 {};
+linkit_i2c: &i2c1 {};
+linkit_sat_spi: &spi2 {};
