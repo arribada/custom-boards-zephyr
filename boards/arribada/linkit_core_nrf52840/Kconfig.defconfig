@@ -5,9 +5,6 @@
 
 if BOARD_LINKIT_CORE_NRF52840
 
-config BOARD
-	default "linkit_core_nrf52840"
-
 config BT_CTLR
 	default BT
 

@@ -25,7 +25,6 @@ The boards include following feature elements :
 * :abbr:`UART (Universal asynchronous receiver-transmitter)`
 * :abbr:`USB (Universal Serial Bus)`
 * :abbr:`WDT (Watchdog Timer)`
-* :abbr:`QSPI (Quad Serial Peripheral Interface)`
 
 .. figure:: img/linkit_core_nrf52840.jpg
      :align: center

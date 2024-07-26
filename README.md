@@ -7,7 +7,7 @@ To add any of the boards to your Zephyr project, add the following to your `west
 ```yaml
     - name: arribada-custom-boards
       path: deps/arribada-custom-boards
-      revision: v3.5.0 # see note below
+      revision: v3.6.0 # see note below
       url: https://github.com/arribada/custom-boards-zephyr
 ```
 

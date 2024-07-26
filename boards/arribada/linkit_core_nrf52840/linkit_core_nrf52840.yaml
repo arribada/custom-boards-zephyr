@@ -14,8 +14,5 @@ supported:
   - watchdog
   - counter
   - linkit_serial
-  - linkit_gnss_serial
   - linkit_i2c
-  - linkit_ext_i2c
-  - linkit_sat_spi
 vendor: arribada
