@@ -16,4 +16,5 @@ To add any of the boards to your Zephyr project, add the following to your `west
 ## Supported Boards
 
 - [Adafruit Feather HUZZAH32 - ESP32](https://www.adafruit.com/product/3405)
-- [Adafruit Feather - ESP32 S3](https://www.adafruit.com/product/5477)
+- [Adafruit Feather -² ESP32 S3](https://www.adafruit.com/product/5477)
+- [Linkit Core - nRF52840 ](https://github.com/arribada/CLS-Argos-Linkit-CORE)
