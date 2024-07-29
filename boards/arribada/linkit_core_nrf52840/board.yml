@@ -1,5 +1,5 @@
 board:
-  name: linkit_core
+  name: linkit_core_nrf52840
   vendor: arribada
   socs:
   - name: nrf52840

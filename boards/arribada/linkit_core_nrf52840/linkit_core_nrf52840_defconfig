@@ -9,6 +9,21 @@ CONFIG_GPIO=y
 # enable uart driver
 CONFIG_SERIAL=y
 
+# enable I2C
+CONFIG_I2C=y
+
+# enable SPI
+CONFIG_SPI=y
+
+# Enable QSPI driver support
+# CONFIG_SPI_NOR=y
+# CONFIG_FLASH=y
+# CONFIG_FLASH_PAGE_LAYOUT=y
+# CONFIG_FLASH_MAP=y
+# CONFIG_MPU_ALLOW_FLASH_WRITE=y
+
+
+
 # enable console
 CONFIG_CONSOLE=y
 CONFIG_UART_CONSOLE=y

@@ -11,14 +11,14 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 / {
     model = "Linkit Core nRF52840 CLS";
-    compatible = "arribada,linkit-nrf52840";
+    compatible = "arribada,linkit-core-nrf52840";
 
     chosen {
         zephyr,console = &uart1;
         zephyr,shell-uart = &uart1;
-        zephyr,uart-mcumgr = &uart1;
-        zephyr,bt-mon-uart = &uart1;
-        zephyr,bt-c2h-uart = &uart1;
+        //zephyr,uart-mcumgr = &uart1;
+        //zephyr,bt-mon-uart = &uart1;
+        //zephyr,bt-c2h-uart = &uart1;
         zephyr,sram = &sram0;
         zephyr,flash = &flash0;
         zephyr,code-partition = &slot0_partition;
@@ -49,16 +49,16 @@
 	};
 
     aliases {
-        led0 = &led0;
-        led1 = &led1;
-        led2 = &led2;
+        ledg = &led0;
+        ledr = &led1;
+        ledb = &led2;
         watchdog0 = &wdt0;
         spi-flash0 = &is25lp128f;
-        spi2 = &spi2;
-        i2c0 = &i2c0;
-        i2c1 = &i2c1;
-        uart0 = &uart0;
-        uart1 = &uart1;
+        artic-spi = &spi2;
+        ext-i2c = &i2c0;
+        in-i2c = &i2c1;
+        uart-gnss = &uart0;
+        uart-log = &uart1;
     };
 };
 
@@ -88,16 +88,16 @@
 };
 
 &uart1 {
-	compatible = "nordic,nrf-uart";
+	//compatible = "nordic,nrf-uart";
     status = "okay";
-    current-speed = <460800>;
+    current-speed = <115200>;
     pinctrl-0 = <&uart1_default>;
     pinctrl-1 = <&uart1_sleep>;
     pinctrl-names = "default", "sleep";
 };
 
 &i2c0 {
-	compatible = "nordic,nrf-twi";
+	//compatible = "nordic,nrf-twi";
     status = "okay";
     //clock-frequency = <I2C_BITRATE_FAST>;
     pinctrl-0 = <&i2c0_default>;
@@ -106,7 +106,7 @@
 };
 
 &i2c1 {
-	compatible = "nordic,nrf-twi";
+	//compatible = "nordic,nrf-twi";
     status = "okay";
     //clock-frequency = <I2C_BITRATE_FAST>;
     pinctrl-0 = <&i2c1_default>;
@@ -115,7 +115,7 @@
 };
 
 &spi2 {
-    compatible = "nordic,nrf-spi";
+    //compatible = "nordic,nrf-spi";
     status = "okay";
     pinctrl-0 = <&spi2_default>;
     pinctrl-1 = <&spi2_sleep>;

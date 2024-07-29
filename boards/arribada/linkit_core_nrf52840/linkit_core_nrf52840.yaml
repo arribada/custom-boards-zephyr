@@ -13,6 +13,8 @@ supported:
   - ble
   - watchdog
   - counter
+  - in-i2c
+  - ext-i2c
   - linkit_serial
   - linkit_i2c
 vendor: arribada
