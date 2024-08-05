@@ -12,3 +12,16 @@ CONFIG_SERIAL=y
 # enable console
 CONFIG_CONSOLE=y
 CONFIG_UART_CONSOLE=y
+
+# Manage External flash:
+CONFIG_FLASH=y
+CONFIG_FLASH_PAGE_LAYOUT=y
+CONFIG_FLASH_MAP=y
+CONFIG_MPU_ALLOW_FLASH_WRITE=y
+CONFIG_NORDIC_QSPI_NOR=y
+
+# Enable SPI dedicated to Artic
+CONFIG_SPI=y
+
+# Enable I2C for sensors
+CONFIG_I2C=y
