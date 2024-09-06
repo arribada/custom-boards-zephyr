@@ -6,7 +6,6 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
-#include "linkit_connector.dtsi"
 #include "rspb_smd_nrf52840-pinctrl.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 / {
@@ -47,6 +46,74 @@
             gpios = <&gpio1 3 (GPIO_ACTIVE_HIGH)>;
             label = "Reed Switch";
         };
+        sensors_pwr: sensors_pwr {
+            gpios = <&gpio0 25 (GPIO_ACTIVE_HIGH)>;
+            label = "Sensors power";
+        };
+        gps_pwr: gps_pwr {
+            gpios = <&gpio1 10 (GPIO_ACTIVE_HIGH)>;
+            label = "GPS Power";
+        };
+        gps_int: gps_int {
+            gpios = <&gpio1 11 (GPIO_ACTIVE_HIGH)>;
+            label = "GPS interrupt";
+        };
+        gps_timepulse: gps_timepulse {
+            gpios = <&gpio0 29 (GPIO_ACTIVE_HIGH)>;
+            label = "GPS Timepulse synchronisation";
+        };
+        gps_rst: gps_rst {
+            gpios = <&gpio1 14 (GPIO_ACTIVE_HIGH)>;
+            label = "GPS reset";
+        };
+        smd_pwr: smd_pwr {
+            gpios = <&gpio1 15 (GPIO_ACTIVE_HIGH)>;
+            label = "Sat SMD Power";
+        };
+        bat_alarm: bat_alarm {
+            gpios = <&gpio0 17 (GPIO_ACTIVE_HIGH)>;
+            label = "Battery Alarm";
+        };
+        bat_chg: bat_chg {
+            gpios = <&gpio0 2 (GPIO_ACTIVE_LOW)>;
+            label = "If low DCDC switching from SPV1050";
+        };
+        bat_ok: bat_ok {
+            gpios = <&gpio0 12 (GPIO_ACTIVE_LOW)>;
+            label = "If low pass transistor between STORE and BATT pins is closed";
+        };
+        main_pwr: main_pwr {
+            gpios = <&gpio0 4 (GPIO_ACTIVE_HIGH)>;
+            label = "Manage 3V3 system Enable";
+        };
+        mcu_done: mcu_done {
+            gpios = <&gpio1 13 (GPIO_ACTIVE_HIGH)>;
+            label = "Set to high after end of process to go back to sleep";
+        };
+        vpa_en: vpa_en {
+            gpios = <&gpio1 1 (GPIO_ACTIVE_HIGH)>;
+            label = "<disconnected by default O8> Turn ON LDO power amplifier";
+        };
+        smd_rf_busy: smd_rf_busy {
+            gpios = <&gpio1 5 (GPIO_ACTIVE_HIGH)>;
+            label = "Debug SMD RF is busy";
+        };
+        smd_rf_nrst: smd_rf_nrst {
+            gpios = <&gpio0 30 (GPIO_ACTIVE_LOW)>;
+            label = "Debug SMD Reset RF";
+        };
+        imu_int1: imu_int1 {
+            gpios = <&gpio1 2 (GPIO_ACTIVE_HIGH)>;
+            label = "IMU interrupt 1";
+        };
+        imu_int2: imu_int2 {
+            gpios = <&gpio0 13 (GPIO_ACTIVE_HIGH)>;
+            label = "IMU interrupt 2";
+        };
+        temp_r: temp_r {
+            gpios = <&gpio0 28 (GPIO_ACTIVE_HIGH)>;
+            label = "Temperature reading";
+        };
     };
 
 	vbatt {
@@ -62,12 +129,30 @@
         ledb = &led2;
         watchdog0 = &wdt0;
         spi-flash0 = &is25lp128f;
-        artic-spi = &spi2;
+        accel0 = &bma4xx;
+        smd-spi = &spi2;
         ext-i2c = &i2c0;
         in-i2c = &i2c1;
         uart-gnss = &uart0;
         uart-log = &uart1;
         reed-switch = &reed_switch;
+        sensors-pwr = &sensors_pwr;
+        gps-pwr = &gps_pwr;
+        smd-pwr = &smd_pwr;
+        gps-int = &gps_int;
+        gps-timepulse = &gps_timepulse;
+        gps-rst = &gps_rst;
+        bat-alarm = &bat_alarm;
+        bat-chg = &bat_chg;
+        bat-ok = &bat_ok;
+        main-pwr = &main_pwr;
+        mcu-done = &mcu_done;
+        vpa-en = &vpa_en;
+        smd-rf-busy = &smd_rf_busy;
+        smd-rf-nrst = &smd_rf_nrst;
+        temp-r = &temp_r;
+        imu-int1 = &imu_int1;
+        imu-int2 = &imu_int2;
     };
 };
 
@@ -91,6 +176,12 @@
         gpios = <3 GPIO_ACTIVE_HIGH>;
         input;
     };
+    interrupts = <2 NRF_DEFAULT_IRQ_PRIORITY>;
+    imu-int1-gpios {
+        gpio-hog;
+        gpios = <2 GPIO_ACTIVE_HIGH>;
+        input;
+    };
 };
 
 &uart0 {
@@ -100,9 +191,16 @@
     pinctrl-0 = <&uart0_default>;
     pinctrl-1 = <&uart0_sleep>;
     pinctrl-names = "default", "sleep";
+    // argossmd{
+	// 	compatible = "arribada,argossmd";
+	// 	status="okay";
+	// 	label="argossmd_device";
+	// 	wakeup-gpios=<&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>; 
+	// };
 };
 
 &uart1 {
+    //Currently used as debug but should used NRF_DBG P0.11 instead and leave uart1 one for SMD communication
 	//compatible = "nordic,nrf-uart";
     status = "okay";
     current-speed = <115200>;
@@ -127,6 +225,14 @@
     pinctrl-0 = <&i2c1_default>;
     pinctrl-1 = <&i2c1_sleep>;
     pinctrl-names = "default", "sleep";
+    bma4xx: bma4xx@14 {
+        status = "okay";
+        compatible = "bosch,bma4xx";
+        reg = <0x14>;
+        int1-gpios = <&gpio1 2 (GPIO_ACTIVE_HIGH)>;
+        supply-gpios = <&gpio0 25 (GPIO_ACTIVE_HIGH)>;
+        friendly-name = "BMA400";
+    };
 };
 
 &spi2 {
@@ -135,6 +241,12 @@
     pinctrl-0 = <&spi2_default>;
     pinctrl-1 = <&spi2_sleep>;
     pinctrl-names = "default", "sleep";
+    // smd_device: smd_device@0 {
+    //   compatible = "arribada,argossmd";  // Device-specific compatible string
+    //   reg = <0>;
+    //   cs-gpios = <&gpio0 5 GPIO_ACTIVE_LOW>;
+    //   spi-max-frequency = <1000000>;   
+    // };
 };
 
 &qspi {
